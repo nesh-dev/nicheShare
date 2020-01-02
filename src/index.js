@@ -5,11 +5,21 @@ import app from './app';
 import typeDefs from './graphQl/Modules/baseTypeDefs';
 import resolvers from './graphQl/Modules/baseResolvers';
 import models from './database/models';
+import { getUser } from './utils/auth';
 
 
 dotenv.config();
 
-const server = new ApolloServer({ typeDefs, resolvers, context: models });
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: ({ req }) => {
+    const tokenWithBearer = req.headers.authorization || '';
+    const token = tokenWithBearer.split(' ')[1];
+    const user = getUser(token);
+    return { user, models };
+  },
+});
 server.applyMiddleware({ app });
 models.sequelize.authenticate();
 

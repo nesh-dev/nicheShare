@@ -24,6 +24,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@sendgrid/mail": "^6.4.0",
     "apollo-server-express": "^2.9.12",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^10.0.3",
@@ -48,6 +49,7 @@
     "http": "0.0.0",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.9.1",
+    "nodemailer": "^6.4.2",
     "nodemon": "^2.0.1",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",

@@ -33,6 +33,14 @@ module.exports = (sequelize, DataTypes) => {
         return () => this.getDataValue('salt');
       }
     },
+
+    isActive: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      validate: {
+        notEmpty: true
+      },
+    }
   }, {});
 
   Users.generateSalt = function () {

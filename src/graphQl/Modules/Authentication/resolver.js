@@ -6,11 +6,20 @@ import HandleAuth from './index';
 
 const resolvers = {
   Query: {
-    async getUser(root, { id }, { models }) {
-      return models.Users.findByPk(id);
+    async getUser(root, args, { user, models }) {
+      if (!user) {
+        throw new Error('user is not authenticated');
+      } else {
+        const { id } = user.userInfo;
+        return models.Users.findByPk(id);
+      }
     },
-    async getAllUsers(root, args, { models }) {
-      return models.Users.findAll();
+    async getAllUsers(root, args, { user, models }) {
+      if (!user) {
+        throw new Error('user is not authenticated');
+      } else {
+        return models.Users.findAll();
+      }
     }
   },
 
@@ -21,7 +30,20 @@ const resolvers = {
     async loginUser(Obj, { email, password }) {
       return HandleAuth.login({ email, password });
     },
-    async userInputError(parent, args, context, info) {
+
+    async activateUser(Obj, { token }) {
+      return HandleAuth.activateUser({ token });
+    },
+
+    async emailToReset(Obj, { email }) {
+      return HandleAuth.emailToReset({ email });
+    },
+
+    async passwordReset(Obj, { password, token }) {
+      return HandleAuth.resetPassword({ password, token });
+    },
+
+    async userInputError(parent, args) {
       if (args.input !== 'expected') {
         throw new UserInputError('Form Arguments invalid', {
           invalidArgs: Object.keys(args),
