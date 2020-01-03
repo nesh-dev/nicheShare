@@ -26,6 +26,7 @@ type Message {
 type Mutation {
     registerUser(name:String!, email: String!, password: String!): AuthPayload!
     loginUser(email: String!, password: String!): AuthPayload!
+    authGoogle(accessToken: String!): AuthPayload!
     activateUser(token: String!): Message!
     passwordReset(password: String!, token:String!): Message!
     emailToReset(email: String!): Message!

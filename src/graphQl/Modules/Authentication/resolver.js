@@ -2,6 +2,7 @@ import {
   UserInputError,
 } from 'apollo-server-express';
 import HandleAuth from './index';
+import { authenticateGoogle } from './socialStrategy';
 
 
 const resolvers = {
@@ -41,6 +42,18 @@ const resolvers = {
 
     async passwordReset(Obj, { password, token }) {
       return HandleAuth.resetPassword({ password, token });
+    },
+
+    async authGoogle(Obj, { accessToken }, { req, res }) {
+      req.body = {
+        ...req.body,
+        access_token: accessToken,
+      };
+      const { data, info } = await authenticateGoogle(req, res);
+      
+      if (data) {
+        console.log(data, info, '>>>>');
+      }
     },
 
     async userInputError(parent, args) {
