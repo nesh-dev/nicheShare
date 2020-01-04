@@ -1,6 +1,9 @@
+import { mergeResolvers } from 'merge-graphql-schemas';
 import AuthResolvers from './Authentication/resolver';
+import HobbyResolvers from './Hobby/resolvers';
 
 const resolvers = [
-  AuthResolvers
+  AuthResolvers,
+  HobbyResolvers
 ];
-export default resolvers;
+export default mergeResolvers(resolvers);

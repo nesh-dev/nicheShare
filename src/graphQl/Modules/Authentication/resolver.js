@@ -52,7 +52,17 @@ const resolvers = {
       const { data, info } = await authenticateGoogle(req, res);
       
       if (data) {
-        console.log(data, info, '>>>>');
+        return HandleAuth.googleLogin(data);
+      }
+
+      if (info) {
+        console.log(info);
+        switch (info.code) {
+          case 'ETIMEDOUT':
+            return (new Error('Failed to reach Google: Try Again'));
+          default:
+            return (new Error('something went wrong'));
+        }
       }
     },
 

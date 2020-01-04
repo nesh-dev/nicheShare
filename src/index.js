@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import { ApolloServer } from 'apollo-server-express';
+import { makeExecutableSchema } from 'graphql-tools';
 
 import app from './app';
 import typeDefs from './graphQl/Modules/baseTypeDefs';
@@ -10,9 +11,10 @@ import { getUser } from './utils/auth';
 
 dotenv.config();
 
+const schema = makeExecutableSchema({ typeDefs, resolvers });
+
 const server = new ApolloServer({
-  typeDefs,
-  resolvers,
+  schema,
   context: ({ req, res }) => {
     const tokenWithBearer = req.headers.authorization || '';
     const token = tokenWithBearer.split(' ')[1];

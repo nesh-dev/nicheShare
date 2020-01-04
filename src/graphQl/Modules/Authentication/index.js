@@ -22,7 +22,8 @@ class HandleAuth {
       });
       const username = await user.name;
       token = jwt.sign({ userInfo: user }, process.env.SECRET_KEY);
-      await Notifications.sendMail(email, 'Welcome and Kindly Activate Your account', 'activate', username, token);
+      await Notifications.sendMail(email,
+        'Welcome and Kindly Activate Your account', 'activate', username, token);
       return { user, token };
     }
   }
@@ -113,6 +114,46 @@ class HandleAuth {
       message = 'Sorry there is no user registered with the email address';
     }
     return { message };
+  }
+
+  static async googleLogin(payload) {
+    const { accessToken, refreshToken, profile } = payload;
+    let user;
+    let existingUser;
+    
+    if (profile.emails[0].value) {
+      const email = profile.emails[0].value;
+      existingUser = await models.Users.findOne({ where: { email } });
+    }
+
+    if (existingUser) {
+      user = await existingUser.update({
+        googleId: profile.id,
+        profileAvatar: profile._json.picture,
+        googleAccessToken: accessToken,
+      });
+    } else {
+      user = await models.Users.findOne({ where: { googleId: profile.id } });
+    }
+
+    if (!user) {
+      user = await models.Users.create({
+        name: profile.displayName || `${profile.family_name} ${profile.given_name}`,
+        email: profile.emails[0].value,
+        googleId: profile.id,
+        googleAccessToken: accessToken,
+        profileAvatar: profile._json.picture
+      });
+
+      const token = jwt.sign({ userInfo: user }, process.env.SECRET_KEY);
+      await Notifications.sendMail(user.name,
+        'Welcome and Kindly Activate Your account',
+        'activate', user.name, token);
+    }
+    if (user) {
+      const token = jwt.sign({ userInfo: user }, process.env.SECRET_KEY);
+      return { user, token };
+    }
   }
 }
 

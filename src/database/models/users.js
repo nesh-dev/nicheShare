@@ -4,6 +4,13 @@ import crypto from 'crypto';
 
 module.exports = (sequelize, DataTypes) => {
   const Users = sequelize.define('Users', {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      validate: {
+        notEmpty: true
+      }
+    },
     name: {
       type: DataTypes.STRING,
       validate: {
@@ -40,7 +47,33 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: true
       },
+    },
+    googleId: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true
+      },
+    },
+    googleAccessToken: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true
+      },
+    },
+    facebookId: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true
+      },
+    },
+    profileAvatar: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true
+      },
     }
+
+
   }, {});
 
   Users.generateSalt = function () {
@@ -55,7 +88,7 @@ module.exports = (sequelize, DataTypes) => {
       .digest('hex');
   };
 
-  Users.decrptPassword = function (plainText, salt) {
+  Users.decryptPassword = function (plainText, salt) {
     return crypto
       .createHash('RSA-SHA256')
       .update(plainText)
@@ -70,16 +103,18 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
 
-  Users.beforeCreate(setSaltAndPassword);
-  Users.beforeUpdate(setSaltAndPassword);
-
-  Users.prototype.correctPassword = function (enterPassword) {
-    return Users.encryptPassword(enterPassword, this.salt()) === this.password();
+  Users.prototype.correctPassword = function (password) {
+    return this.password() === Users.encryptPassword(password, this.salt());
   };
 
-
-  Users.associate = function (models) {
+  Users.beforeCreate(setSaltAndPassword);
+  Users.beforeUpdate(setSaltAndPassword);
+  Users.associate = (models) => {
     // associations can be defined here
+    Users.hasMany(models.Hobby, {
+      foreignKey: 'id',
+      as: 'hobbies'
+    });
   };
   return Users;
 };
