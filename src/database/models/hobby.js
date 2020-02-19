@@ -6,7 +6,10 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: true,
       },
-      unique: true,
+      unique: {
+        args: true,
+        msg: 'This hobby already exists'
+      }
     },
     userId: {
       type: DataTypes.INTEGER,

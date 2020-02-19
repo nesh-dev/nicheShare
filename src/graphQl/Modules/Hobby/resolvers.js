@@ -5,12 +5,10 @@ import models from '../../../database/models';
 const resolvers = {
   Query: {
     async getHobby(root, { name }, { user }) {
-      const userObject = await models.Hobby.findOne({ where: { name } });
-      
       if (!user) {
         throw new Error('user is not authenticated');
       } else {
-        return userObject;
+        return HobbyUtils.getHobby({ name });
       }
     },
 
@@ -38,7 +36,16 @@ const resolvers = {
       } else {
         return HobbyUtils.updateHobby({ user, id, name });
       }
+    },
+
+    async deleteHobby(root, { id }, { user }) {
+      if (!user) {
+        throw new Error(' user is not authenticated ');
+      } else {
+        return HobbyUtils.deleteHobby({ id, user });
+      }
     }
+
   }
 };
 
