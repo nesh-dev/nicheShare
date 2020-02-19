@@ -5,12 +5,10 @@ import models from '../../../database/models';
 const resolvers = {
   Query: {
     async getHobby(root, { name }, { user }) {
-      const userObject = await models.Hobby.findOne({ where: { name } });
-      
       if (!user) {
         throw new Error('user is not authenticated');
       } else {
-        return userObject;
+        return HobbyUtils.getHobby({ name });
       }
     },
 
@@ -18,27 +16,46 @@ const resolvers = {
       if (!user) {
         throw new Error('user is not authenticated');
       } else {
-        await models.Hobby.findAll();
+        return models.Hobby.findAll({
+          where: {
+            isDeleted: false
+          }
+        });
       }
     }
   },
 
   Mutation: {
-    async createHobby(root, { name }, { user }) {
+    async createHobby(root, { name, image, description }, { user }) {
       if (!user) {
         throw new Error(' user is not authenticated ');
       } else {
-        return HobbyUtils.createHobby({ name, user });
+        return HobbyUtils.createHobby({
+          name, user, image, description
+        });
       }
     },
 
-    async updateHobby(root, { id, name }, { user }) {
+    async updateHobby(root, {
+      id, name, image, description
+    }, { user }) {
       if (!user) {
         throw new Error(' user is not authenticated ');
       } else {
-        return HobbyUtils.updateHobby({ user, id, name });
+        return HobbyUtils.updateHobby({
+          user, id, name, image, description
+        });
+      }
+    },
+
+    async deleteHobby(root, { id }, { user }) {
+      if (!user) {
+        throw new Error(' user is not authenticated ');
+      } else {
+        return HobbyUtils.deleteHobby({ id, user });
       }
     }
+
   }
 };
 

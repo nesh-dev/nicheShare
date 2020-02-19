@@ -6,11 +6,30 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: true,
       },
-      unique: true,
+      unique: {
+        args: true,
+        msg: 'This hobby already exists'
+      }
+    },
+    description: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: false
+      }
+    },
+    image: {
+      type: DataTypes.STRING,
     },
     userId: {
       type: DataTypes.INTEGER,
+    },
+    isDeleted: {
+      type: DataTypes.BOOLEAN,
+      validate: {
+        notEmpty: true
+      }
     }
+    
   }, {});
   Hobby.associate = (models) => {
     // associations can be defined here
@@ -18,6 +37,11 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'userId',
       as: 'user',
       targetKey: 'id'
+    });
+
+    Hobby.hasMany(models.HobbyPosts, {
+      foreignKey: 'id',
+      as: 'posts'
     });
   };
   return Hobby;

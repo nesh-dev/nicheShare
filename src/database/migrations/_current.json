@@ -1,0 +1,17 @@
+{
+    "tables": {
+        "Hobbies": {
+            "tableName": "Hobbies",
+            "indexes": []
+        },
+        "HobbyPosts": {
+            "tableName": "HobbyPosts",
+            "indexes": []
+        },
+        "Users": {
+            "tableName": "Users",
+            "indexes": []
+        }
+    },
+    "revision": 1
+}

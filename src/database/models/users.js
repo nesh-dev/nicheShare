@@ -22,6 +22,10 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         isEmail: true,
         notEmpty: true
+      },
+      unique: {
+        args: true,
+        msg: 'This email already exists'
       }
     },
 
@@ -114,6 +118,11 @@ module.exports = (sequelize, DataTypes) => {
     Users.hasMany(models.Hobby, {
       foreignKey: 'id',
       as: 'hobbies'
+    });
+
+    Users.hasMany(models.HobbyPosts, {
+      foreignKey: 'id',
+      as: 'posts'
     });
   };
   return Users;
