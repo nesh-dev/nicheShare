@@ -2,7 +2,6 @@ import HobbyPostsUtils from './index';
 
 const resolvers = {
   Query: {
-
     async getHobbyPosts(root, { user }) {
       if (!user) {
         throw new Error('user is not authenticated');
@@ -22,12 +21,13 @@ const resolvers = {
   },
 
   Mutation: {
-
-    async createHobbyPost(root, { title, description, image }, { user }) {
-      if (!user) {
+    async createHobbyPosts(root, args, { user: { userInfo } }) {
+      if (!userInfo) {
         throw new Error(' User is not authenticated');
       } else {
-        return HobbyPostsUtils.createHobbyPost({ title, description, image });
+        return HobbyPostsUtils.createHobbyPost({
+          ...args, userInfo,
+        });
       }
     }
 

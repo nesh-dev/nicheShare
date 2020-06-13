@@ -4,7 +4,7 @@ import models from '../../../database/models';
 
 const resolvers = {
   Query: {
-    async getHobby(root, { name }, { user }) {
+    async getHobby(parent, { name }, { user }) {
       if (!user) {
         throw new Error('user is not authenticated');
       } else {
@@ -26,24 +26,22 @@ const resolvers = {
   },
 
   Mutation: {
-    async createHobby(root, { name, image, description }, { user }) {
+    async createHobby(root, args, { user }) {
       if (!user) {
         throw new Error(' user is not authenticated ');
       } else {
         return HobbyUtils.createHobby({
-          name, user, image, description
+          user, ...args
         });
       }
     },
 
-    async updateHobby(root, {
-      id, name, image, description
-    }, { user }) {
+    async updateHobby(root, args, { user }) {
       if (!user) {
         throw new Error(' user is not authenticated ');
       } else {
         return HobbyUtils.updateHobby({
-          user, id, name, image, description
+          user, ...args
         });
       }
     },

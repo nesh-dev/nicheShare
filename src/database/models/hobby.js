@@ -30,7 +30,8 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
     
-  }, {});
+  },
+  {});
   Hobby.associate = (models) => {
     // associations can be defined here
     Hobby.belongsTo(models.Users, {
@@ -41,7 +42,8 @@ module.exports = (sequelize, DataTypes) => {
 
     Hobby.hasMany(models.HobbyPosts, {
       foreignKey: 'id',
-      as: 'posts'
+      as: 'posts',
+      targetKey: 'id'
     });
   };
   return Hobby;

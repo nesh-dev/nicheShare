@@ -3,15 +3,25 @@ import models from '../../../database/models';
 class Hobby {
   static async getHobby(payload) {
     const { name } = payload;
-    const existingHobby = await models.Hobby.findOne({ where: { name, isDeleted: false } });
-    if (existingHobby === null) { throw new Error('Hobby does not exist'); }
-    return existingHobby;
+
+    const hobby = await models.Hobby.findOne({ where: { name, isDeleted: false } });
+    const { id } = hobby;
+    const hobbyPosts = await models.HobbyPosts.findAll({
+      where: {
+        hobbyId: id,
+        isDeleted: false
+      },
+      logging: console.log
+    });
+    if (hobby === null) { throw new Error('Hobby does not exist'); }
+    return { hobby, hobbyPosts };
   }
 
   static async createHobby(payload) {
+    const { input, user } = payload;
     const {
-      name, user, image, description
-    } = payload;
+      name, image, description
+    } = input;
     const { userInfo: { id: userId } } = user;
     const existingHobby = await models.Hobby.findOne({ where: { name, isDeleted: false } });
     let hobby;

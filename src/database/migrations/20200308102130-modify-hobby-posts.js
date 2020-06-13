@@ -8,7 +8,7 @@ module.exports = {
       })
   ),
   down: (queryInterface, Sequelize) => (
-    queryInterface.addColumn('HobbyPosts', 'userId',
+    queryInterface.removeColumn('HobbyPosts', 'userId',
       {
         
       })

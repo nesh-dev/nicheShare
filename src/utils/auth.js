@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-export const getUser = (token) => {
+const getUser = (token) => {
   try {
     if (token) {
       return jwt.verify(token, process.env.SECRET_KEY);
@@ -10,3 +10,5 @@ export const getUser = (token) => {
     return null;
   }
 };
+
+export default getUser;

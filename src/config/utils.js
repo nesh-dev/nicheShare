@@ -5,7 +5,6 @@ const generalOptionalEnvVariables = [
   'DATABASE_HOST',
   'DATABASE_PORT',
   'DATABASE_PASSWORD',
-  'TRAVEL_READINESS_MAIL_CYCLE',
 ];
   
 const optionalEnvVariables = {

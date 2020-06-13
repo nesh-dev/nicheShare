@@ -4,13 +4,6 @@ import crypto from 'crypto';
 
 module.exports = (sequelize, DataTypes) => {
   const Users = sequelize.define('Users', {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      validate: {
-        notEmpty: true
-      }
-    },
     name: {
       type: DataTypes.STRING,
       validate: {
