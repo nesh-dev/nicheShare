@@ -2,19 +2,26 @@ import models from '../../../database/models';
 
 class Hobby {
   static async getHobby(payload) {
-    const { name } = payload;
-
-    const hobby = await models.Hobby.findOne({ where: { name, isDeleted: false } });
-    const { id } = hobby;
-    const hobbyPosts = await models.HobbyPosts.findAll({
-      where: {
-        hobbyId: id,
-        isDeleted: false
-      },
-      logging: console.log
-    });
-    if (hobby === null) { throw new Error('Hobby does not exist'); }
-    return { hobby, hobbyPosts };
+    const { name, userLoader } = payload;
+    console.log(typeof (userLoader.load(1)), 'OOOOO');
+    try {
+      const hobby = await models.Hobby.findOne({ where: { name, isDeleted: false } });
+      if (hobby) {
+        const { id } = hobby;
+        const posts = await models.HobbyPosts.findAll({
+          where: {
+            hobbyId: id,
+            isDeleted: false
+          },
+          logging: console.log
+        });
+        
+        return { hobby, hobbyPosts };
+      }
+      throw new Error('Hobby does not exist');
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   static async createHobby(payload) {
@@ -43,7 +50,11 @@ class Hobby {
     const {
       id, name, user, image, description
     } = payload;
-    const hobbyToUpdate = await models.Hobby.findOne({ where: { id, isDeleted: false }, attributes: ['userId'] });
+    const hobbyToUpdate = await models.Hobby.findOne(
+      {
+        where: { id, isDeleted: false }, attributes: ['userId']
+      }
+    );
     const { userInfo: { id: userId } } = user;
     const { dataValues: { userId: ownerId } } = hobbyToUpdate;
     const verifyOwner = userId === ownerId;

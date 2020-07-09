@@ -27,7 +27,7 @@ directive @constraint(
         image: String 
         hobbyId: Int!
         slug: String!
-       
+        author: User!
     }
 
     type HobbyPostsPayload {

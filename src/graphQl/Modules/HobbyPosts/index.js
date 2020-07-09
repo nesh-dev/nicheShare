@@ -2,12 +2,13 @@
 import models from '../../../database/models';
 
 class HobbyPostsUtils {
-  static async getAllHobbyPosts() {
+  static async getAllHobbyPosts(payload) {
     const allHobbies = models.HobbyPosts.findAll({
       where: {
         isDeleted: false
       }
     });
+  
     return allHobbies;
   }
 
@@ -16,15 +17,15 @@ class HobbyPostsUtils {
     const {
       title, description, image, hobbyId
     } = input;
-    const { userId } = userInfo;
+    const { id } = userInfo;
     try {
       const user = await models.Users.findOne({
         where: {
-          id: userId
+          id
         }
       });
       const hobbyPosts = await models.HobbyPosts.create({
-        userId,
+        userId: id,
         title,
         description,
         image,

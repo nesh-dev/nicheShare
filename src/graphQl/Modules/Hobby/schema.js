@@ -32,7 +32,7 @@ type Hobby {
 
 type hobbyResponse {
     hobby: Hobby!
-    hobbyPosts: [HobbyPosts!]
+    hobbyPosts: [HobbyPostsPayload!]
 }
 
 type Query {

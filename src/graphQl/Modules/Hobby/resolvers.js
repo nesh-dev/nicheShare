@@ -3,12 +3,21 @@ import models from '../../../database/models';
 
 
 const resolvers = {
-  Query: {
-    async getHobby(parent, { name }, { user }) {
+  HobbyPosts: {
+    author: async (parent, args, { user, userLoader }) => {
       if (!user) {
         throw new Error('user is not authenticated');
       } else {
-        return HobbyUtils.getHobby({ name });
+        return userLoader.load(parent.userId);
+      }
+    }
+  },
+  Query: {
+    async getHobby(root, args, { user, userLoader }) {
+      if (!user) {
+        throw new Error('user is not authenticated');
+      } else {
+        return HobbyUtils.getHobby({ ...args, userLoader });
       }
     },
 

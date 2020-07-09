@@ -31,7 +31,11 @@ const server = new ApolloServer({
       userLoader: new DataLoader((ids) => userLoader(ids))
     };
     return {
-      user, models, req, res, loaders
+      user,
+      models,
+      req,
+      res,
+      ...loaders,
     };
   },
 });

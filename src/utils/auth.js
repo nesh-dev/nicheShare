@@ -7,7 +7,7 @@ const getUser = (token) => {
     }
     return null;
   } catch (err) {
-    return null;
+    throw new Error(err);
   }
 };
 
