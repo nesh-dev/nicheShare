@@ -2,11 +2,14 @@
 import models from '../../../database/models';
 
 class HobbyPostsUtils {
-  static async getAllHobbyPosts(payload) {
+  static async getAllHobbyPosts() {
     const allHobbies = models.HobbyPosts.findAll({
       where: {
         isDeleted: false
-      }
+      },
+      order: [
+        ['createdAt', 'DESC']
+      ]
     });
   
     return allHobbies;

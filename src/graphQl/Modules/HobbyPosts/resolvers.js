@@ -1,25 +1,30 @@
 import HobbyPostsUtils from './index';
 
 const resolvers = {
-  Query: {
-    async getHobbyPost(root, args, { user }) {
-
+  HobbyPosts: {
+    hobby: async (parent, args, { user, hobbyLoader }) => {
       if (!user) {
         throw new Error('user is not authenticated');
       } else {
-
+        return hobbyLoader.load(parent.hobbyId);
+      }
+    }
+  },
+  Query: {
+    async HobbyPost(root, args, { user }) {
+      if (!user) {
+        throw new Error('user is not authenticated');
+      } else {
         return HobbyPostsUtils.getHobbyPost({ ...args });
       }
     },
-    async getHobbyPosts(root, args, { user}) {
+    async HobbyPosts(root, args, { user }) {
       if (!user) {
         throw new Error('user is not authenticated');
       } else {
         return HobbyPostsUtils.getAllHobbyPosts();
       }
     }
-
-
   },
 
   Mutation: {

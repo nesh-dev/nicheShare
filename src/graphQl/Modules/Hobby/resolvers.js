@@ -3,6 +3,7 @@ import models from '../../../database/models';
 
 
 const resolvers = {
+  
   HobbyPosts: {
     author: async (parent, args, { user, userLoader }) => {
       if (!user) {
@@ -13,22 +14,25 @@ const resolvers = {
     }
   },
   Query: {
-    async getHobby(root, args, { user, userLoader }) {
+    async Hobby(root, args, { user }) {
       if (!user) {
         throw new Error('user is not authenticated');
       } else {
-        return HobbyUtils.getHobby({ ...args, userLoader });
+        return HobbyUtils.getHobby({ ...args });
       }
     },
 
-    async getHobbies(root, args, { user }) {
+    async Hobbies(root, args, { user }) {
       if (!user) {
         throw new Error('user is not authenticated');
       } else {
         return models.Hobby.findAll({
           where: {
             isDeleted: false
-          }
+          },
+          order: [
+            ['createdAt', 'DESC']
+          ]
         });
       }
     }

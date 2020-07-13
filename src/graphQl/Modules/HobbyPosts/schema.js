@@ -25,22 +25,17 @@ directive @constraint(
         title: String!
         description: String!
         image: String 
-        hobbyId: Int!
+        hobby: Hobby!
         slug: String!
         author: User!
-    }
-
-    type HobbyPostsPayload {
-        hobbyPosts: HobbyPosts
-        user: User
     }
 
     type Message {
         Message: String!
     }
     type Query {
-        getHobbyPosts: [HobbyPosts!]!
-        getHobbyPost(id:Int): HobbyPosts!
+        HobbyPosts: [HobbyPosts!]!
+        HobbyPost(id:Int): HobbyPosts!
     }
     
     input hobbyPostsInput {
@@ -51,8 +46,8 @@ directive @constraint(
     }
 
     type Mutation {
-        createHobbyPosts(input: hobbyPostsInput): HobbyPostsPayload!
-        updateHobbyPosts(input: hobbyPostsInput): HobbyPostsPayload!
+        createHobbyPosts(input: hobbyPostsInput): HobbyPosts!
+        updateHobbyPosts(input: hobbyPostsInput): HobbyPosts!
         deleteHobbyPosts(id:Int): Message!
 
     }

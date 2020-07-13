@@ -30,14 +30,14 @@ type Hobby {
     isDeleted: Boolean
 }
 
-type hobbyResponse {
-    hobby: Hobby!
-    hobbyPosts: [HobbyPostsPayload!]
+type hobbyResponse { 
+    hobby: Hobby
+    hobbyPosts: [HobbyPosts!]
 }
 
 type Query {
-    getHobby(name:String!): hobbyResponse!
-    getHobbies:[Hobby!]!
+    Hobby(name:String!): hobbyResponse!
+    Hobbies:[Hobby!]!
 }
 
 type Message {

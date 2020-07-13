@@ -9,6 +9,7 @@ import models from './database/models';
 import getUser from './utils/auth';
 import app from './app';
 import userLoader from './graphQl/Modules/DataLoaders/userLoader';
+import hobbyLoader from './graphQl/Modules/DataLoaders/hobby'
 
 dotenv.config();
 
@@ -28,7 +29,9 @@ const server = new ApolloServer({
     const token = tokenWithBearer.split(' ')[1];
     const user = getUser(token);
     const loaders = {
-      userLoader: new DataLoader((ids) => userLoader(ids))
+      userLoader: new DataLoader((ids) => userLoader(ids)),
+      hobbyLoader: new DataLoader((ids) => hobbyLoader(ids))
+
     };
     return {
       user,

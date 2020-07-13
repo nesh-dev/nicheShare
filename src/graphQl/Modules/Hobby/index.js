@@ -2,20 +2,17 @@ import models from '../../../database/models';
 
 class Hobby {
   static async getHobby(payload) {
-    const { name, userLoader } = payload;
-    console.log(typeof (userLoader.load(1)), 'OOOOO');
+    const { name } = payload;
     try {
       const hobby = await models.Hobby.findOne({ where: { name, isDeleted: false } });
       if (hobby) {
         const { id } = hobby;
-        const posts = await models.HobbyPosts.findAll({
+        const hobbyPosts = await models.HobbyPosts.findAll({
           where: {
             hobbyId: id,
             isDeleted: false
           },
-          logging: console.log
         });
-        
         return { hobby, hobbyPosts };
       }
       throw new Error('Hobby does not exist');
@@ -30,7 +27,9 @@ class Hobby {
       name, image, description
     } = input;
     const { userInfo: { id: userId } } = user;
-    const existingHobby = await models.Hobby.findOne({ where: { name, isDeleted: false } });
+    const existingHobby = await models.Hobby.findOne(
+      { where: { name, isDeleted: false }
+      });
     let hobby;
     if (!existingHobby) {
       hobby = await models.Hobby.create({
