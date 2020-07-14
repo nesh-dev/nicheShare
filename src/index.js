@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import { ApolloServer, makeExecutableSchema } from 'apollo-server-express';
+import { applyMiddleware } from 'graphql-middleware';
 import { constraintDirective } from 'graphql-constraint-directive';
 import DataLoader from 'dataloader';
 
@@ -9,7 +10,8 @@ import models from './database/models';
 import getUser from './utils/auth';
 import app from './app';
 import userLoader from './graphQl/Modules/DataLoaders/userLoader';
-import hobbyLoader from './graphQl/Modules/DataLoaders/hobby'
+import hobbyLoader from './graphQl/Modules/DataLoaders/hobby';
+import middleware from './graphQl/Modules/Middleware';
 
 dotenv.config();
 
@@ -20,10 +22,11 @@ const schema = makeExecutableSchema(
     schemaTransforms: [constraintDirective('constraint')]
   }
 );
+const schemaWithMiddleware = applyMiddleware(schema, ...middleware);
 
 const server = new ApolloServer({
 
-  schema,
+  schema: schemaWithMiddleware,
   context: ({ req, res }) => {
     const tokenWithBearer = req.headers.authorization || '';
     const token = tokenWithBearer.split(' ')[1];

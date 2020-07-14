@@ -20,13 +20,8 @@ class HobbyPostsUtils {
     const {
       title, description, image, hobbyId
     } = input;
-    const { id } = userInfo;
+    const { userId: id } = userInfo;
     try {
-      const user = await models.Users.findOne({
-        where: {
-          id
-        }
-      });
       const hobbyPosts = await models.HobbyPosts.create({
         userId: id,
         title,
@@ -34,7 +29,7 @@ class HobbyPostsUtils {
         image,
         hobbyId
       });
-      return { hobbyPosts, user };
+      return hobbyPosts;
     } catch (error) {
       throw new Error(`${error}`);
     }

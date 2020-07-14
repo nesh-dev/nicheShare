@@ -11,31 +11,19 @@ const resolvers = {
     }
   },
   Query: {
-    async HobbyPost(root, args, { user }) {
-      if (!user) {
-        throw new Error('user is not authenticated');
-      } else {
-        return HobbyPostsUtils.getHobbyPost({ ...args });
-      }
+    async HobbyPost(root, args) {
+      return HobbyPostsUtils.getHobbyPost({ ...args });
     },
-    async HobbyPosts(root, args, { user }) {
-      if (!user) {
-        throw new Error('user is not authenticated');
-      } else {
-        return HobbyPostsUtils.getAllHobbyPosts();
-      }
+    async HobbyPosts(root, args) {
+      return HobbyPostsUtils.getAllHobbyPosts({ ...args });
     }
   },
 
   Mutation: {
     async createHobbyPosts(root, args, { user: { userInfo } }) {
-      if (!userInfo) {
-        throw new Error(' User is not authenticated');
-      } else {
-        return HobbyPostsUtils.createHobbyPost({
-          ...args, userInfo,
-        });
-      }
+      return HobbyPostsUtils.createHobbyPost({
+        ...args, userInfo,
+      });
     }
 
   }

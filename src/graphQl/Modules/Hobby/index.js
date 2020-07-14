@@ -26,10 +26,10 @@ class Hobby {
     const {
       name, image, description
     } = input;
-    const { userInfo: { id: userId } } = user;
+    const { userInfo: { userId } } = user;
     const existingHobby = await models.Hobby.findOne(
-      { where: { name, isDeleted: false }
-      });
+      { where: { name, isDeleted: false } }
+    );
     let hobby;
     if (!existingHobby) {
       hobby = await models.Hobby.create({
