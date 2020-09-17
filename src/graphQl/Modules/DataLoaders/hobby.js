@@ -1,6 +1,5 @@
 import models from '../../../database/models';
 
-
 const hobbyPostsLoader = async (keys) => {
   const posts = await models.Hobby.findAll({
     where: { id: keys, isDeleted: false }

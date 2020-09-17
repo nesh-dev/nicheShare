@@ -1,4 +1,3 @@
-'use strict';
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -43,8 +42,6 @@ module.exports = {
       onDelete: 'cascade',
       onUpdate: 'cascade'
     });
-
-
   },
 
   down: async (queryInterface, Sequelize) => {
@@ -59,6 +56,5 @@ module.exports = {
     await queryInterface.removeColumn('Hobbies', 'userId', {});
     await queryInterface.removeColumn('HobbyPosts', 'userId', {});
     await queryInterface.removeColumn('HobbyPosts', 'hobbyId', {});
-
   }
 };
