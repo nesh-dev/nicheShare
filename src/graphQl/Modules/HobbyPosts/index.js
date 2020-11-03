@@ -38,10 +38,10 @@ class HobbyPostsUtils {
     const hobby = await models.Hobby.findOne({ where: { id: hobbyId, isDeleted: false } });
 
     if (hobby) {
-      const { userId: id } = userInfo;
+      const { id: userId } = userInfo;
       try {
         const hobbyPosts = await models.HobbyPosts.create({
-          userId: id,
+          userId,
           title,
           description,
           image,
@@ -57,7 +57,7 @@ class HobbyPostsUtils {
   }
 
   static async updateHobbyPost(payload) {
-    const { userInfo: { userId }, input, slug } = payload;
+    const { userInfo: { id: userId }, input, slug } = payload;
     const {
       title, description, image, hobbyId,
     } = input;
@@ -73,7 +73,7 @@ class HobbyPostsUtils {
 
 
   static async deleteHobbyPost(payload) {
-    const { userInfo: { userId }, slug } = payload;
+    const { userInfo: { id: userId }, slug } = payload;
     try {
       let message;
       const hobbyToDelete = await models.HobbyPosts.findOne({ where: { slug, userId, isDeleted: false } });

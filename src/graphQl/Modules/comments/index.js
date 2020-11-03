@@ -33,7 +33,7 @@ class CommentsUtils {
   static async createComment(payload) {
     const {
       input,
-      userInfo: { userId }
+      userInfo: { id: userId }
     } = payload;
 
     const { text, parent, hobbyPostId } = input;

@@ -21,7 +21,7 @@ class HandleAuth {
         password
       });
       const { id, name: userName } = user;
-      const userObject = { userId: id, userName };
+      const userObject = { id, userName };
       token = jwt.sign({ userInfo: userObject }, process.env.SECRET_KEY);
       await Notifications.sendMail(email,
         'Welcome and Kindly Activate Your account', 'activate', userName, token);
@@ -33,7 +33,7 @@ class HandleAuth {
     const { email, password } = payload;
     const user = await models.Users.findOne({ where: { email } });
     const { name, id } = user;
-    const userObject = { userId: id, userName: name };
+    const userObject = { id, userName: name };
     const correct = user && await user.correctPassword(password);
     let token;
     if (user && correct) {

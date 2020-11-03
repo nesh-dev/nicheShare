@@ -18,6 +18,7 @@
     "db:rollback": "node_modules/.bin/sequelize db:migrate:undo:all",
     "db:rollmigrate": "yarn db:rollback && yarn db:migrate && yarn db:seed && babel-node migrator/fetchData",
     "db:user:migrate": "babel-node migrator/fetchData",
+    "db:generate": "node_modules/sequelize-auto-migrations/bin/makemigration --name",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
