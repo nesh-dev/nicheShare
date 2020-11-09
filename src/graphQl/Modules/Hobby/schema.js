@@ -58,5 +58,6 @@ type Mutation {
     createHobby(input: createHobbyInput): Hobby!
     updateHobby(id: Int, input: createHobbyInput): Hobby!
     deleteHobby(id:Int): Message!
+    searchHobbyPosts(name:String!): Hobby!
 }`;
 module.exports = typeDefs;

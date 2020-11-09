@@ -49,6 +49,7 @@ directive @constraint(
         createHobbyPosts(input: hobbyPostsInput): HobbyPosts!
         updateHobbyPosts(slug: String, input: hobbyPostsInput): HobbyPosts!
         deleteHobbyPosts(slug: String): Message!
+   
     }
   
 `;

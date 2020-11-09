@@ -66,6 +66,7 @@
     "pg": "^8.2.1",
     "pg-hstore": "^2.3.3",
     "sequelize": "^5.21.12",
+    "sequelize-auto": "^0.7.1",
     "sequelize-auto-migrations": "^1.0.3",
     "sequelize-automatic-migrations": "^1.0.1",
     "sequelize-cli": "^5.5.1",

@@ -1,7 +1,7 @@
 import models from '../../../database/models';
 
 
-const hobbyLoader = async (keys) => {
+const hobbyPostLoader = async (keys) => {
   const posts = await models.HobbyPosts.findAll({
     where: { id: keys }
   });
@@ -13,4 +13,4 @@ const hobbyLoader = async (keys) => {
 };
 
   
-export default hobbyLoader;
+export default hobbyPostLoader;
