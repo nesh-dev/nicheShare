@@ -40,7 +40,8 @@ class HandleAuth {
       if (!user.isActive) {
         throw new Error('Kindly check your email address to activate your account');
       } else {
-        token = jwt.sign({ userInfo: userObject }, process.env.SECRET_KEY);
+        const members = await models.member.findAll({ where: { userId: user.id } });
+        token = jwt.sign({ userInfo: userObject, members }, process.env.SECRET_KEY);
         return { token };
       }
     } else {
@@ -149,12 +150,17 @@ class HandleAuth {
       });
 
       const token = jwt.sign({ userInfo: user }, process.env.SECRET_KEY);
-      await Notifications.sendMail(user.name,
-        'Welcome and Kindly Activate Your account',
-        'activate', user.name, token);
+      try {
+        await Notifications.sendMail(user.name,
+          'Welcome and Kindly Activate Your account',
+          'activate', user.name, token);
+      } catch (e) {
+        console.log(e);
+      }
     }
     if (user) {
-      const token = jwt.sign({ userInfo: user }, process.env.SECRET_KEY);
+      const members = await models.member.findAll({ where: { userId: user.id } });
+      const token = jwt.sign({ userInfo: user, members }, process.env.SECRET_KEY);
       return { user, token };
     }
   }

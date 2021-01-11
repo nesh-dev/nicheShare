@@ -3,7 +3,6 @@ import models from '../../../database/models';
 
 class Members {
   static async getMembers(payload) {
-    console.log(payload);
     const { hobbyId } = payload;
     const members = await models.member.findAll({ where: { hobbyId } });
     if (members) {
@@ -19,7 +18,6 @@ class Members {
   }
 
   static async join(payload) {
-    console.log(payload);
     let member;
     const { user: { userInfo: { id: userId } }, hobbyId } = payload;
     const existingMember = await models.member.findOne({ where: { userId, hobbyId, isDeleted: false } });
@@ -35,7 +33,6 @@ class Members {
 
   static async leave(payload) {
     const { user: { userInfo: { id: userId } }, hobbyId } = payload;
-    console.log(userId, '>>>');
     const existingMember = await models.member.findOne({ where: { userId, hobbyId, isDeleted: false } });
        
     if (!existingMember) {
