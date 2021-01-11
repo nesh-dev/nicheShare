@@ -8,12 +8,15 @@ module.exports = {
       Example:
       return queryInterface.createTable('users', { id: Sequelize.INTEGER });
     */
-    await queryInterface.addColumn('comments', 'isDeleted',
-      {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
-        default: false
-      });
+    await queryInterface.addColumn('Hobbies', 'bannerImage', {
+      type: Sequelize.STRING,
+      allowNull: true,
+    });
+
+    await queryInterface.addColumn('Hobbies', 'profileImage', {
+      type: Sequelize.STRING,
+      allowNull: true
+    });
   },
 
   down: async (queryInterface, Sequelize) => {
@@ -24,9 +27,7 @@ module.exports = {
       Example:
       return queryInterface.dropTable('users');
     */
-    await queryInterface.removeColumn('comments', 'isDeleted',
-      {
-        
-      });
+    await queryInterface.removeColumn('Hobbies', 'bannerImage', {});
+    await queryInterface.removeColumn('Hobbies', 'profileImage', {});
   }
 };

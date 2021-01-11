@@ -20,21 +20,33 @@ module.exports = (sequelize, DataTypes) => {
     image: {
       type: DataTypes.STRING,
     },
+    
     userId: {
       type: DataTypes.INTEGER,
     },
+
+    bannerImage: {
+      type: DataTypes.STRING,
+    },
+
+    profileImage: {
+      type: DataTypes.STRING
+    },
+    
     isDeleted: {
       type: DataTypes.BOOLEAN,
       validate: {
         notEmpty: true
       }
     },
+
     deletedAt: {
       type: DataTypes.BOOLEAN,
       validate: {
         notEmpty: true
       }
     },
+
   },
   { paranoid: true });
   Hobby.associate = (models) => {

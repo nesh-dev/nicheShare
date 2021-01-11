@@ -6,8 +6,8 @@ type User {
     id: Int!
     name: String!
     email:String!
-    googleId:String!
-    profileAvatar: String!
+    googleId:String
+    profileAvatar: String
 }
 
 type Query {

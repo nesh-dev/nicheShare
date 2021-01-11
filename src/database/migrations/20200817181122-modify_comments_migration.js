@@ -7,6 +7,12 @@ module.exports = {
         allowNull: false,
       });
 
+    await queryInterface.addColumn('comments', 'parent',
+      {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      });
+
     await queryInterface.addConstraint('comments', ['userId'], {
       type: 'foreign key',
       name: 'userId',

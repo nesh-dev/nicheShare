@@ -8,8 +8,7 @@ module.exports = {
       Example:
       return queryInterface.createTable('users', { id: Sequelize.INTEGER });
     */
-
-    await queryInterface.addConstraint('Hobbies', ['userId'], {
+    await queryInterface.addConstraint('members', ['userId'], {
       type: 'foreign key',
       name: 'userId',
       references: {
@@ -20,19 +19,7 @@ module.exports = {
       onUpdate: 'cascade'
     });
 
-
-    await queryInterface.addConstraint('HobbyPosts', ['userId'], {
-      type: 'foreign key',
-      name: 'userId',
-      references: {
-        table: 'Users',
-        field: 'id'
-      },
-      onDelete: 'cascade',
-      onUpdate: 'cascade'
-    });
-
-    await queryInterface.addConstraint('HobbyPosts', ['hobbyId'], {
+    await queryInterface.addConstraint('members', ['hobbyId'], {
       type: 'foreign key',
       name: 'hobbyId',
       references: {
@@ -52,9 +39,5 @@ module.exports = {
       Example:
       return queryInterface.dropTable('users');
     */
-
-    await queryInterface.removeColumn('Hobbies', 'userId', {});
-    await queryInterface.removeColumn('HobbyPosts', 'userId', {});
-    await queryInterface.removeColumn('HobbyPosts', 'hobbyId', {});
   }
 };
