@@ -3382,20 +3382,20 @@ express-graphql@^0.9.0:
     http-errors "^1.7.3"
     raw-body "^2.4.1"
 
-express-jwt@^5.3.1:
-  version "5.3.1"
-  resolved "https://registry.yarnpkg.com/express-jwt/-/express-jwt-5.3.1.tgz#66f05c7dddb5409c037346a98b88965bb10ea4ae"
-  integrity sha512-1C9RNq0wMp/JvsH/qZMlg3SIPvKu14YkZ4YYv7gJQ1Vq+Dv8LH9tLKenS5vMNth45gTlEUGx+ycp9IHIlaHP/g==
+express-jwt@^6.0.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/express-jwt/-/express-jwt-6.1.0.tgz#5818c813e245b0eb361c5cf161425cf16f9c8591"
+  integrity sha512-mmSR52Ps1FMeGwchroHzEJONWhsobd5KHVVKBffYiUEpZh9iK9wI9ZWkmzY5ROwWQtJLNGHV/VUMLh2M208s4Q==
   dependencies:
     async "^1.5.0"
-    express-unless "^0.3.0"
+    express-unless "^1.0.0"
     jsonwebtoken "^8.1.0"
     lodash.set "^4.0.0"
 
-express-unless@^0.3.0:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/express-unless/-/express-unless-0.3.1.tgz#2557c146e75beb903e2d247f9b5ba01452696e20"
-  integrity sha1-JVfBRudb65A+LSR/m1ugFFJpbiA=
+express-unless@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/express-unless/-/express-unless-1.0.0.tgz#ecd1c354c5ccf7709a8a17ece617934e037cccd8"
+  integrity sha512-zXSSClWBPfcSYjg0hcQNompkFN/MxQQ53eyrzm9BYgik2ut2I7PxAf2foVqBRMYCwWaZx/aWodi+uk76npdSAw==
 
 express@^4.0.0, express@^4.17.1:
   version "4.17.1"
@@ -5541,9 +5541,9 @@ object-keys@^1.0.11, object-keys@^1.0.12, object-keys@^1.1.1:
   integrity sha512-NuAESUOUMrlIXOfHKzD6bpPu3tYt3xvjNdRIQ+FeT0lNb4K8WR70CaDxhuNguS2XG+GjkyMwOzsN5ZktImfhLA==
 
 object-path@^0.11.4:
-  version "0.11.4"
-  resolved "https://registry.yarnpkg.com/object-path/-/object-path-0.11.4.tgz#370ae752fbf37de3ea70a861c23bba8915691949"
-  integrity sha1-NwrnUvvzfePqcKhhwju6iRVpGUk=
+  version "0.11.7"
+  resolved "https://registry.yarnpkg.com/object-path/-/object-path-0.11.7.tgz#5f211161f34bb395e4b13a5f565b79d933b6f65d"
+  integrity sha512-T4evaK9VfGGQskXBDILcn6F90ZD+WO3OwRFFQ2rmZdUH4vQeDBpiolTpVlPY2yj5xSepyILTjDyM6UvbbdHMZw==
 
 object-visit@^1.0.0:
   version "1.0.1"
