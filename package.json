@@ -53,7 +53,7 @@
     "graphql-validation": "^2.2.2",
     "http": "0.0.0",
     "install": "^0.13.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "merge-graphql-schemas": "^1.7.6",
     "morgan": "^1.9.1",
     "nodemailer": "^6.4.2",
